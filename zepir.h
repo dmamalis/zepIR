@@ -1,6 +1,26 @@
 #ifndef ZEPIR_H_
 #define ZEPIR_H_
 
+typedef struct deviceDescriptor_t{
+	char dualDirectionalMode;
+	char frequencyResponseSetting;
+	char hyperSenseLevel;
+	char hyperSenseSetting;
+	char lightGateThreshold;
+	char MDactivationTime;
+	char MDcurrentOutputActiveTime;
+	char MDRSTpinConfiguration;
+	char motionDetectionUnsolicitedMode;
+	char motionDetectionSuspendSetting;
+	char motionStatus;
+	char pingValue;
+	char rangeSetting;
+	char sensitivity;
+	char serialInterfaceCommandMode;
+	char singleDirectionalMode;
+	char sleepTime;
+}deviceDescriptor_t;
+
 int readCommand(int fd,char cmd);
 int writeCommand(int fd, char cmd, char val);
 int confirmationCommand(int fd, char cmd);
