@@ -5,6 +5,26 @@
 #include <stdlib.h>
 #include "zepir.h"
 
+typedef struct deviceDescriptor_t{
+	char dualDirectionalMode;
+	char frequencyResponseSetting;
+	char hyperSenseLevel;
+	char hyperSenseSetting;
+	char lightGateThreshold;
+	char MDactivationTime;
+	char MDcurrentOutputActiveTime;
+	char MDRSTpinConfiguration;
+	char motionDetectionUnsolicitedMode;
+	char motionDetectionSuspendSetting;
+	char motionStatus;
+	char pingValue;
+	char rangeSetting;
+	char sensitivity;
+	char serialInterfaceCommandMode;
+	char singleDirectionalMode;
+	char sleepTime;
+}deviceDescriptor_t;
+
 /*
  * 'open_port()' - Open serial port 1.
  *
@@ -28,8 +48,48 @@ int open_port(void){
   return (fd);
 }
 
+void printSettings(int fd, deviceDescriptor_t device){
+	device.dualDirectionalMode = readDualDirectionalMode(fd);
+	device.frequencyResponseSetting = readFrequencyResponseSetting(fd);
+	device.hyperSenseLevel = readHyperSenseLevel(fd);
+	device.hyperSenseSetting = readHyperSenseSetting(fd); 
+	device.lightGateThreshold = readLightGateThreshold(fd);
+	device.MDactivationTime = readMDactivationTime(fd);
+	device.MDcurrentOutputActiveTime = readMDcurrentOutputActiveTime(fd);
+	device.MDRSTpinConfiguration = readMDRSTpinConfiguration(fd);
+	device.motionDetectionUnsolicitedMode = readMotionDetectedUnsolicitedMode(fd);
+	device.motionDetectionSuspendSetting = readMotionDetectionSuspendSetting(fd);
+	device.motionStatus = readMotionStatus(fd);
+	device.pingValue = readPingValue(fd);
+	device.rangeSetting = readRangeSetting(fd);
+	device.sensitivity = readSensitivity(fd);
+	device.serialInterfaceCommandMode = readSerialInterfaceCommandMode(fd);
+	device.singleDirectionalMode = readSingleDirectionalMode(fd);
+	device.sleepTime = readSleepTime(fd);
+	printf("==============SETTINGS===================\n");
+	printf("Dual Directional Mode:\t\t\t%c\n",device.dualDirectionalMode);
+	printf("Frequency Response Setting:\t\t%c\n",device.frequencyResponseSetting);
+	printf("Hyper Sense Level:\t\t\t%d\n",device.hyperSenseLevel);
+	printf("Hyper Sense Setting:\t\t\t%c\n",device.hyperSenseSetting);
+	printf("Light Gate Threshold:\t\t\t%d\n",device.lightGateThreshold);
+	printf("MD Activation Time:\t\t\t%c\n",device.MDactivationTime);
+	printf("MD Current Output Active Time:\t\t%d\n",device.MDcurrentOutputActiveTime);
+	printf("MD/RST Pin Configuration:\t\t%c\n",device.MDRSTpinConfiguration);
+	printf("Motion Detection Unsolicited Mode:\t%c\n",device.motionDetectionUnsolicitedMode);
+	printf("Motion Detection Suspend Setting:\t%c\n",device.motionDetectionSuspendSetting);
+	printf("Motion Status:\t\t\t\t%c\n",device.motionStatus);
+	printf("Ping Value:\t\t\t\t%d\n",device.pingValue);
+	printf("Range Setting:\t\t\t\t%d\n",device.rangeSetting);
+	printf("Sensitivity:\t\t\t\t%d\n",device.sensitivity);
+	printf("Serial Interface Command Mode:\t\t%c\n",device.serialInterfaceCommandMode);
+	printf("Single Directional Mode:\t\t%c\n",device.singleDirectionalMode);
+	printf("Sleep Time:\t\t\t\t%d\n",device.sleepTime);	
+	printf("=========================================\n");
+}
+
 int main( int argc, char** argv )
 {
+	deviceDescriptor_t device;
 	int fd = open_port();
 	char command;
 	int res;
@@ -167,6 +227,9 @@ int main( int argc, char** argv )
 			case 'A':
 				close(fd);
 				exit(0);
+			case 'B':
+				printSettings(fd,device);
+				break;
 			default:
 				printf("No such command\n");
 				break;
@@ -174,19 +237,3 @@ int main( int argc, char** argv )
 	}
 	close(fd);
 }
-
-
-//read commands
-//----->command
-//<-----response
-//write commands
-//----->command
-//<-----CurrentValue (single byte)
-//----->NewValue (single byte)
-//<-----ACK (NACK after 2.5s)
-//confirmation commands
-//----->Command
-//<-----ACK
-//----->Sequence(4 characters)
-//<-----ACK
-
