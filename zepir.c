@@ -3,6 +3,116 @@
 #include <stdlib.h>
 #include "zepir.h"
 
+void updateDualDirectionalMode(char res){
+	device.dualDirectionalMode = res;
+}
+void updateFrequencyResponseSetting(char res){
+	device.frequencyResponseSetting = res;
+}
+void updateHyperSenseLevel(char res){
+	device.hyperSenseLevel = res;
+}
+void updateHyperSenseSetting(char res){
+	device.hyperSenseSetting = res;
+}
+void updateLightGateThreshold(char res){
+	device.lightGateThreshold = res;
+}
+void updateMDactivationTime(char res){
+	device.MDactivationTime = res;
+}
+void updateMDcurrentOutputActiveTime(char res){
+	device.MDcurrentOutputActiveTime = res;
+}
+void updateMDoutputState(char res){
+	device.MDoutputState = res;
+}
+void updateMDRSTpinConfiguration(char res){
+	device.MDRSTpinConfiguration = res;
+}
+void updateMotionDetectionUnsolicitedMode(char res){
+	device.motionDetectionUnsolicitedMode = res;
+}
+void updateMotionDetectionSuspendSetting(char res){
+	device.motionDetectionSuspendSetting = res;
+}
+void updateMotionStatus(char res){
+	device.motionStatus = res;
+}
+void updatePingValue(char res){
+	device.pingValue = res;
+}
+void updateRangeSetting(char res){
+	device.rangeSetting = res;
+}
+void updateSensitivity(char res){
+	device.sensitivity = res;
+}
+void updateSerialInterfaceCommandMode(char res){
+	device.serialInterfaceCommandMode = res;
+}
+void updateSingleDirectionalMode(char res){
+	device.singleDirectionalMode = res;
+}
+void updateSleepTime(char res){
+	device.sleepTime = res;
+}
+
+char getdualDirectionalMode(){
+	return device.dualDirectionalMode;
+}
+char getfrequencyResponseSetting(){
+	return device.frequencyResponseSetting;
+}
+char gethyperSenseLevel(){
+	return device.hyperSenseLevel;
+}
+char gethyperSenseSetting(){
+	return device.hyperSenseSetting;
+}
+char getlightGateThreshold(){
+	return device.lightGateThreshold;
+}
+char getMDactivationTime(){
+	return device.MDactivationTime;
+}
+char getMDcurrentOutputActiveTime(){
+	return device.MDcurrentOutputActiveTime;
+}
+char getMDoutputState(){
+	return device.MDoutputState;
+}
+char getMDRSTpinConfiguration(){
+	return device.MDRSTpinConfiguration;
+}
+char getmotionDetectionUnsolicitedMo(){
+	return device.motionDetectionUnsolicitedMode;
+}
+char getmotionDetectionSuspendSettin(){
+	return device.motionDetectionSuspendSetting;
+}
+char getmotionStatus(){
+	return device.motionStatus;
+}
+char getpingValue(){
+	return device.pingValue;
+}
+char getrangeSetting(){
+	return device.rangeSetting;
+}
+char getsensitivity(){
+	return device.sensitivity;
+}
+char getserialInterfaceCommandMode(){
+	return device.serialInterfaceCommandMode;
+}
+char getsingleDirectionalMode(){
+	return device.singleDirectionalMode;
+}
+char getsleepTime(){
+	return device.sleepTime;
+}
+
 int readCommand(int fd,char cmd){
 	char buffer[1];
 	int n;
@@ -60,8 +170,6 @@ int confirmationCommand(int fd, char cmd){
 	}
 	return 1;
 }
-
-
 
 char readMotionStatus(int fd){
 	char res;
@@ -264,6 +372,7 @@ char writeMDRSTpinConfiguration(int fd,char val){
 		fputs("Error in writeMDRSTpinConfiguration()\n",stderr);
 		return -1;
 	}
+	updateMDRSTpinConfiguration(res);
 	return res;
 }
 
@@ -278,6 +387,7 @@ char writeMDactivationTime(int fd,char val){
 		fputs("Error in writeMDactivationTime()\n",stderr);
 		return -1;
 	}
+	updateMDactivationTime(res);
 	return res;
 }
 
@@ -292,6 +402,7 @@ char writeHyperSenseSetting(int fd,char val){
 		fputs("Error in writeHyperSenseSetting()\n",stderr);
 		return -1;
 	}
+	updateHyperSenseSetting(res);
 	return res;	
 }
 
@@ -306,6 +417,7 @@ char writeFrequencyResponseSetting(int fd,char val){
 		fputs("Error in writeFrequencyResponseSetting()\n",stderr);
 		return -1;
 	}
+	updateFrequencyResponseSetting(res);
 	return res;	
 }
 
@@ -320,6 +432,7 @@ char writeHyperSenseLevel(int fd,char val){
 		fputs("Error in writeHyperSenseLevel()\n",stderr);
 		return -1;
 	}
+	updateHyperSenseLevel(res);
 	return res;	
 }
 
@@ -334,6 +447,7 @@ char writeMotionDetectionSyspendSetting(int fd,char val){
 		fputs("Error in writeMotionDetectionSyspendSetting()\n",stderr);
 		return -1;
 	}
+	updateMotionDetectionSuspendSetting(res);
 	return res;	
 }
 
@@ -348,6 +462,7 @@ char writeSerialInterfaceCommandMode(int fd,char val){
 		fputs("Error in writeSerialInterfaceCommandMode()\n",stderr);
 		return -1;
 	}
+	updateSerialInterfaceCommandMode(res);
 	return res;	
 }
 
@@ -362,6 +477,7 @@ char writeLightGateThreshold(int fd,char val){
 		fputs("Error in writeLightGateThreshold()\n",stderr);
 		return -1;
 	}
+	updateLightGateThreshold(res);
 	return res;
 }
 
@@ -376,10 +492,11 @@ char writeMotionDetectedUnsolicitedMode(int fd,char val){
 		fputs("Error in writeMotionDetectedUnsolicitedMode()\n",stderr);
 		return -1;
 	}
+	updateMotionDetectionUnsolicitedMode(res);
 	return res;	
 }
 
-char writeMDOutputState(int fd,char val){
+char writeMDoutputState(int fd,char val){
 	char res;
 	if(val<0 || val>255){
 		fputs("Value must be in [0,255]'\n", stderr);
@@ -390,6 +507,7 @@ char writeMDOutputState(int fd,char val){
 		fputs("Error in writeMDOutputState()\n",stderr);
 		return -1;
 	}
+	updateMDoutputState(res);
 	return res;
 }
 
@@ -404,6 +522,7 @@ char writePingValue(int fd,char val){
 		fputs("Error in writePingValue()\n",stderr);
 		return -1;
 	}
+	updatePingValue(res);
 	return res;
 }
 
@@ -418,6 +537,7 @@ char writeRangeSetting(int fd,char val){
 		fputs("Error in writeRangeSetting()\n",stderr);
 		return -1;
 	}
+	updateRangeSetting(res);
 	return res;
 }
 
@@ -432,6 +552,7 @@ char writeSensitivity(int fd,char val){
 		fputs("Error in writeSensitivity()\n",stderr);
 		return -1;
 	}
+	updateSensitivity(res);
 	return res;
 }
 
@@ -446,6 +567,7 @@ char writeDualDirectionalMode(int fd,char val){
 		fputs("Error in writeDualDirectionalMode()\n",stderr);
 		return -1;
 	}
+	updateDualDirectionalMode(res);
 	return res;	
 }
 
@@ -460,6 +582,7 @@ char writeSingleDirectionalMode(int fd,char val){
 		fputs("Error in writeSingleDirectionalMode()\n",stderr);
 		return -1;
 	}
+	updateSingleDirectionalMode(res);
 	return res;	
 }
 
@@ -474,6 +597,7 @@ char writeSleepTime(int fd,char val){
 		fputs("Error in writeSleepTime()\n",stderr);
 		return -1;
 	}
+	updateSleepTime(res);
 	return res;
 }
 
