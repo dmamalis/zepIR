@@ -69,14 +69,36 @@ void printSettings(int fd, deviceDescriptor_t device){
 	printf("=========================================\n");
 }
 
+void init(int fd){
+	printf("Initializing Module\n");
+	writeMDRSTpinConfiguration(fd, 'M');
+	writeMDactivationTime(fd, 1);
+	writeHyperSenseSetting(fd, 'N');
+	writeHyperSenseLevel(fd, 1);
+	writeFrequencyResponseSetting(fd, 'L');
+	writeMotionDetectionSyspendSetting(fd, 'N');
+	writeSerialInterfaceCommandMode(fd, 'D');
+	writeLightGateThreshold(fd, 0);
+	writeMotionDetectedUnsolicitedMode(fd, 'N');
+	writeMDoutputState(fd, 1);
+	writePingValue(fd, 1);
+	writeRangeSetting(fd, 2);
+	writeSensitivity(fd, 12);
+	writeDualDirectionalMode(fd, 'N');
+	writeSingleDirectionalMode(fd, 'A');
+	writeSleepTime(fd, 0);
+}	
+
+
 int main( int argc, char** argv )
 {
-	
 	int fd = open_port();
 	char command;
 	int res;
-	char mode;
-	int value;
+	char val;
+	
+	init(fd);
+
 	while(1){
 		printf("Give command: ");
 		scanf(" %c",&command);
@@ -86,7 +108,7 @@ int main( int argc, char** argv )
 				printf("Motion Status: %c\n",readMotionStatus(fd));
 				break;
 			case 'b':
-				printf("Current Light Gate Level iss: %d\n",readMotionStatus(fd));
+				printf("Current Light Gate Level iss: %c\n",readMotionStatus(fd));
 				break;
 			case 'c':
 				res = readMDRSTpinConfiguration(fd);
@@ -107,7 +129,7 @@ int main( int argc, char** argv )
 				printf("Frequency Response Setting: %c\n",readFrequencyResponseSetting(fd));
 				break;
 			case 'g':
-				printf("Hyper Sense Level: %d\n",readHyperSenseLevel(fd));
+				printf("Hyper Sense Level: %c\n",readHyperSenseLevel(fd));
 				break;
 			case 'h':
 				printf("Motion Detection Syspend Setting: %c\n",readMotionDetectionSuspendSetting(fd));
@@ -116,22 +138,22 @@ int main( int argc, char** argv )
 				printf("Serial Interface Command Mode: %c\n",readSerialInterfaceCommandMode(fd));
 				break;
 			case 'l':
-				printf("Light Gate Threshold: %d\n",readLightGateThreshold(fd));
+				printf("Light Gate Threshold: %c\n",readLightGateThreshold(fd));
 				break;
 			case 'm':
 				printf("Motion Detected Unsolicited Mode: %c\n",readMotionDetectedUnsolicitedMode(fd));
 				break;
 			case 'o':
-				printf("MD Current Output Active Time: %d\n",readMDcurrentOutputActiveTime(fd));
+				printf("MD Current Output Active Time: %c\n",readMDcurrentOutputActiveTime(fd));
 				break;
 			case 'p':
-				printf("Ping Value: %d\n",readPingValue(fd));
+				printf("Ping Value: %c\n",readPingValue(fd));
 				break;
 			case 'r':
-				printf("Range Setting: %d\n",readRangeSetting(fd));
+				printf("Range Setting: %c\n",readRangeSetting(fd));
 				break;
 			case 's':
-				printf("Sensitivity: %d\n",readSensitivity(fd));
+				printf("Sensitivity: %c\n",readSensitivity(fd));
 				break;
 			case 'u':
 				printf("Dual Directional Mode: %c\n",readDualDirectionalMode(fd));
@@ -140,74 +162,69 @@ int main( int argc, char** argv )
 				printf("Single Directional Mode: %c\n",readSingleDirectionalMode(fd));
 				break;
 			case 'y':
-				printf("Sleep Time: %d\n",readSleepTime(fd));
+				printf("Sleep Time: %c\n",readSleepTime(fd));
 				break;
 			case 'C':
-				scanf(" %c",&mode);
-				writeMDRSTpinConfiguration(fd,mode);
+				scanf(" %c",&val);
+				writeMDRSTpinConfiguration(fd,val);
 				break;
 			case 'D':
-				scanf("%d",&value);
-				writeMDactivationTime(fd,(char)value);
+				scanf(" %c",&val);
+				writeMDactivationTime(fd,val);
 				break;
 			case 'E':
-				scanf(" %c",&mode);
-				writeHyperSenseSetting(fd,mode);
+				scanf(" %c",&val);
+				writeHyperSenseSetting(fd,val);
 				break;
 			case 'F':
-				scanf(" %c",&mode);
-				writeFrequencyResponseSetting(fd,mode);
+				scanf(" %c",&val);
+				writeFrequencyResponseSetting(fd,val);
 				break;
 			case 'G':
-				scanf("%d",&value);
-				writeHyperSenseLevel(fd,value);
+				scanf(" %c",&val);
+				writeHyperSenseLevel(fd,val);
 				break;
 			case 'H':
-				scanf(" %c",&mode);
-				writeMotionDetectionSyspendSetting(fd,mode);
+				scanf(" %c",&val);
+				writeMotionDetectionSyspendSetting(fd,val);
 				break;
 			case 'K':
-				scanf(" %c",&mode);
-				writeSerialInterfaceCommandMode(fd,mode);
+				scanf(" %c",&val);
+				writeSerialInterfaceCommandMode(fd,val);
 				break;
 			case 'L':
-				scanf("%d",&value);
-				writeLightGateThreshold(fd,value);
-				break;
-			case 'M':
-				scanf(" %c",&mode);
-				writeMotionDetectedUnsolicitedMode(fd,mode);
+				scanf(" %c",&val);
+				writeLightGateThreshold(fd,val);
 				break;
 			case 'O':
-				scanf("%d",&value);
-				writeMDoutputState(fd,value);
+				scanf(" %c",&val);
+				writeMDoutputState(fd,val);
 				break;
 			case 'P':
-				scanf("%d",&value);
-				writePingValue(fd,value);
+				scanf(" %c",&val);
+				writePingValue(fd,val);
 				break;
 			case 'R':
-				scanf("%d",&value);
-				writeRangeSetting(fd,value);
+				scanf(" %c",&val);
+				writeRangeSetting(fd,val);
 				break;
 			case 'S':
-				scanf("%d",&value);
-				writeSensitivity(fd,value);
+				scanf(" %c",&val);
+				writeSensitivity(fd,val);
 				break;
 			case 'U':
-				scanf(" %c",&mode);
-				writeDualDirectionalMode(fd,mode);
+				scanf(" %c",&val);
+				writeDualDirectionalMode(fd,val);
 				break;
 			case 'V':
-				scanf(" %c",&mode);
-				writeSingleDirectionalMode(fd,mode);
+				scanf(" %c",&val);
+				writeSingleDirectionalMode(fd,val);
 				break;
 			case 'X':
 				moduleReset(fd);
 				break;
 			case 'Y':
-				scanf("%d",&value);
-				writeSleepTime(fd,value);
+				writeSleepTime(fd,val);
 				break;
 			case 'Z':
 				sleepMode(fd);
@@ -225,3 +242,19 @@ int main( int argc, char** argv )
 	}
 	close(fd);
 }
+
+
+//read commands
+//----->command
+//<-----response
+//write commands
+//----->command
+//<-----CurrentValue (single byte)
+//----->NewValue (single byte)
+//<-----ACK (NACK after 2.5s)
+//confirmation commands
+//----->Command
+//<-----ACK
+//----->Sequence(4 characters)
+//<-----ACK
+
