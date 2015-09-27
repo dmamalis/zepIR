@@ -70,7 +70,6 @@ void printSettings(int fd, deviceDescriptor_t device){
 }
 
 void init(int fd){
-	printf("Initializing Module\n");
 	writeMDRSTpinConfiguration(fd, 'M');
 	writeMDactivationTime(fd, 1);
 	writeHyperSenseSetting(fd, 'N');
@@ -92,13 +91,19 @@ void init(int fd){
 
 int main( int argc, char** argv )
 {
-	int fd = open_port();
+	
 	char command;
 	int res;
 	char val;
-	
-	init(fd);
+	int fd = open_port();
+	if(fd<0){
+		return 0;
+	}
 
+	printf("Initializing Module...\n");
+	init(fd);
+	printf("Initialization done.\n");
+	
 	while(1){
 		printf("Give command: ");
 		scanf(" %c",&command);
