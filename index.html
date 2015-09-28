@@ -29,19 +29,133 @@
             document.getElementById("myRange").innerHTML= "Slider changed";
             socket.emit('changeSlider',value);
         }
-        
+        function changeState(value){
+            var value = document.getElementById("").value;
+            socket.emit('changeState',value);
+        }
+        function writeMDRSTpinConfiguration(value){
+            var value = document.getElementById("").value;
+            socket.emit('writeMDRSTpinConfiguration',value);
+        }
+        function writeHyperSenseSetting(value){
+            var value = document.getElementById("").value;
+            socket.emit('writeHyperSenseSetting',value);
+        }
+        function writeFrequencyResponseSetting(value){
+            var value = document.getElementById("").value;
+            socket.emit('writeFrequencyResponseSetting',value);
+        }
+        function writeMotionDetectionSyspendSetting(value){
+            var value = document.getElementById("").value;
+            socket.emit('writeMotionDetectionSyspendSetting',value);
+        }
+        function writeSerialInterfaceCommandMode(value){
+            var value = document.getElementById("").value;
+            socket.emit('writeSerialInterfaceCommandMode',value);
+        }
+        function writeMotionDetectedUnsolicitedMode(value){
+            var value = document.getElementById("").value;
+            socket.emit('writeMotionDetectedUnsolicitedMode',value);
+        }
+        function writeDualDirectionalMode(value){
+            var value = document.getElementById("").value;
+            socket.emit('writeDualDirectionalMode',value);
+        }
+        function writeSingleDirectionalMode(value){
+            var value = document.getElementById("").value;
+            socket.emit('writeSingleDirectionalMode',value);
+        }
+        function moduleReset(value){
+            var value = document.getElementById("").value;
+            socket.emit('moduleReset',value);
+        }
+        function sleepMode(value){
+            var value = document.getElementById("").value;
+            socket.emit('sleepMode',value);
+        }
+        //slider commands
+        function writeMDactivationTime(value){
+            var value = document.getElementById("deactivationTime").value;
+            socket.emit('writeMDactivationTime',value);
+        }
+        function writeHyperSenseLevel(value){
+            var value = document.getElementById("hyperSenseLevel").value;
+            socket.emit('writeHyperSenseLevel',value);
+        }
+        function writeLightGateThreshold(value){
+            var value = document.getElementById("lightGateThreshold").value;
+            socket.emit('writeLightGateThreshold',value);
+        }
+        function writeMDoutputState(value){
+            var value = document.getElementById("MDoutputState").value;
+            socket.emit('writeMDoutputState',value);
+        }
+        function writePingValue(value){
+            var value = document.getElementById("pingValue").value;
+            socket.emit('writePingValue',value);
+        }
+        function writeRangeSetting(value){
+            var value = document.getElementById("range").value;
+            socket.emit('writeRangeSetting',value);
+        }
+        function writeSensitivity(value){
+            var value = document.getElementById("sensitivity").value;
+            socket.emit('writeSensitivity',value);
+        }
+        function writeSleepTime(value){
+            var value = document.getElementById("sleepTime").value;
+            socket.emit('writeSleepTime',value);
+        }
+
+
+
+
     </script>
 </head>
-    <h2>LED</h2>
+    <h2>HomeLAB</h2>
     <p id="outputStatus">Status</p>
     <button type="button" onclick="changeState(1);">ON</button>
     <button type="button" onclick="changeState(0);">OFF</button>
     
     <div>
-    Test:<input type="range" id="myRange" value="90" max=110>
-    <button type="button" onclick="changeSlider()">Set</button>
+    Deactivation Time:<input type="range" id="deactivationTime" value="90" max="255">
+    <button type="button" onclick="writeMDactivationTime()">Set</button>
+    </div>
+
+    <div>
+    Hypersense Level:<input type="range" id="hyperSenseLevel" value="1" max="3">
+    <button type="button" onclick="writeHyperSenseLevel()">Set</button>
+    </div
+
+    <div>
+    Light Gate Threshold:<input type="range" id="lightGateThreshold" value="90" max="255">
+    <button type="button" onclick="writeLightGateThreshold()">Set</button>
+    </div>
+
+    <div>
+    MD Output State:<input type="range" id="MDoutputState" value="90" max="255">
+    <button type="button" onclick="writeMDoutputState()">Set</button>
+    </div>
+
+    <div>
+    Ping Value:<input type="range" id="pingValue" value="90" max="255">
+    <button type="button" onclick="writePingValue()">Set</button>
+    </div>
+
+    <div>
+    Range:<input type="range" id="range" value="0" max="7">
+    <button type="button" onclick="writeRangeSetting()">Set</button>
+    </div>
+
+    <div>
+    Sensitivity:<input type="range" id="sensitivity" value="90" max="255">
+    <button type="button" onclick="writeSensitivity()">Set</button>
+    </div>
+
+    <div>
+    Sleep Time:<input type="range" id="sleepTime" value="90" max="255">
+    <button type="button" onclick="writeSleepTime()">Set</button>
     </div>
     
-</div>
 </body>
 </html>
